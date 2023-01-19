@@ -1,0 +1,12 @@
+.transDown {
+  animation: trans 0.1s forwards;
+}
+
+@keyframes trans {
+  from {
+    transform: translateY(-1000px);
+  }
+  to {
+    transform: translateY(0px);
+  }
+}
