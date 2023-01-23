@@ -12,3 +12,7 @@ export async function getProductFromPartGroup(id) {
   const res = await axiosApi.get(`api/part/getpartlist3?groupcode=${id}`);
   return res.data;
 }
+export async function getProductPageInation(pageNo,groupCode) {
+  const res = await axiosApi.get(`api/part/getpagedpartlist?page=${pageNo}&groupcode=${groupCode}`);
+  return res.data;
+}

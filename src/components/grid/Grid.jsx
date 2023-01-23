@@ -6,34 +6,37 @@ import Spinner from "../spinner/Spinner";
 
 import { FaSlidersH } from "react-icons/fa";
 
-import { getData } from "../../api";
+import { getData, getProductPageInation } from "../../api";
 import { Context } from "../../context";
 import { FadeLoader } from "react-spinners";
+import InfiniteScroll from "react-infinite-scroll-component";
+import PagInation, { PaginationNav1Presentation } from "../pagination";
+import PageInation from "../pagination";
 
 export default function Grid() {
   const [filter, setFilter] = useState(false);
-  const [data, setData] = useState([]);
-  const [sortedData, setsortedData] = useState([]);
   const [changeOption, setChangeOption] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [page, setPage] = useState(0);
   const context = useContext(Context);
-  const {products,setProducts,loadingGridComponent,setLoadingGridComponent} = context
+  const {products,setProducts,loadingGridComponent,setLoadingGridComponent,partGroup} = context
  
   const toggleFilter = () => setFilter((prev) => !prev);
 
   useEffect(() => {
+    console.log("page is ",page)
     setLoadingGridComponent(true)
-    getData()
+    getProductPageInation(page,partGroup)
       .then((res) => {
         const sort1 = res.map((item) => {
           return { ...item, SellPrice: parseInt(item.SellPrice.replaceAll(",", "")) };
         });
-        setProducts(sort1)
+        setProducts([...products,...sort1])
       setLoadingGridComponent(false)
       })
       .then(setLoading(false))
       .catch((error) => console.log(error));
-  }, []);
+  }, [page]);
 
   function sortPerPrice(acending) {
     return products.sort(function (a, b) {
@@ -56,10 +59,10 @@ useEffect(()=>{
   sortPerPrice(changeOption)
 },[changeOption])
 
-  if (loadingGridComponent) {
-    return <Spinner />;
+  // if (loadingGridComponent) {
+  //   return <Spinner />;
 
-  }
+  // }
 
   return (
     <div id="containerProduct" className="w-full flex flex-col md:w-2/3 py-6">
@@ -94,7 +97,7 @@ useEffect(()=>{
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 p-2">
         {products.map((element) => {
           return (
-            <Card
+          <Card
               key={element.Codepart}
               name={element.EnPartName}
               price={element.SellPrice}
@@ -106,9 +109,11 @@ useEffect(()=>{
               brand={element.Brand}
               partNumber={element.PartNo}
             />
-          );
-        })}
+            
+            );
+          })}
           </div>
-    </div>
+         <PageInation/>
+          </div>
   );
 }

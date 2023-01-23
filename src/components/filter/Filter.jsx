@@ -10,8 +10,9 @@ import { Context } from "../../context";
 
 function FilterItem({ header, data }) {
   const context= useContext(Context)
-  const {setProducts,setLoadingGridComponent}=context
+  const {setProducts,setLoadingGridComponent,setPartGroup}=context
   const reqSever = (groupCode)=>{
+    setPartGroup(getPartGroupList)
     setLoadingGridComponent(true)
     getProductFromPartGroup(groupCode).then((res)=>{
       setProducts(res)
@@ -79,7 +80,6 @@ export default function Filter({ view, toggle }) {
   const { register, handleSubmit } = useForm();
 
   const [sliderData, setSliderData] = useState([]);
-
   return (
     <div
       className={`${

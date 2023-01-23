@@ -2,6 +2,7 @@ import React, { createContext, useState } from "react";
 export const Context = createContext({});
 export const ContextProvider = props => {
   const [products, setProducts] = useState([]);
+  const [partGroup, setPartGroup] = useState(0);
   const [loadingGridComponent ,setLoadingGridComponent] = useState(false);
   
 
@@ -9,6 +10,8 @@ export const ContextProvider = props => {
   return (
     <Context.Provider
       value={{
+        partGroup,
+        setPartGroup,
         products,
         setProducts,
         loadingGridComponent,
