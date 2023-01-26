@@ -6,7 +6,7 @@ import Spinner from "../spinner/Spinner";
 
 import { FaSlidersH } from "react-icons/fa";
 
-import { getData, getPartGroupList, getProductPageInation } from "../../api";
+import { getData, getProductPageInation } from "../../api";
 import { Context } from "../../context";
 import { FadeLoader } from "react-spinners";
 import InfiniteScroll from "react-infinite-scroll-component";
@@ -114,7 +114,7 @@ console.log("numberOfPages",numberOfPages)
           })}
          
           </div>
-         { numberOfPages !=NaN ?< PageInation numberOfPagesP={(numberOfPages/products.length)}/>:""}
+         < PageInation numberOfPagesP={(numberOfPages/products.length)}/>
           </div>
   );
 }

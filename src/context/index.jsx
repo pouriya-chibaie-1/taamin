@@ -3,7 +3,7 @@ export const Context = createContext({});
 export const ContextProvider = props => {
   const [products, setProducts] = useState([]);
   const [partGroup, setPartGroup] = useState(0);
-  const [page, setPage] = useState(0);
+  const [pageContext, setPageContext] = useState(0);
   const [numberOfPages, setNumberOfPages] = useState(0);
   const [loadingGridComponent ,setLoadingGridComponent] = useState(false);
   
@@ -18,8 +18,8 @@ export const ContextProvider = props => {
         setProducts,
         loadingGridComponent,
         setLoadingGridComponent,
-        // page,
-        // setPage,
+        pageContext,
+        setPageContext,
         numberOfPages,
         setNumberOfPages
       }}

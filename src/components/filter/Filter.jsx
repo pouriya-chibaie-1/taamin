@@ -4,21 +4,32 @@ import { useForm } from "react-hook-form";
 import Slider from "../slider/Slider";
 
 import { status, truck, brand } from "../../assets/filterData/filterData";
-import { getPartGroupList,getProductFromPartGroup } from "../../api";
+import { getPartGroupList,getProductFromPartGroup, getProductPageInation } from "../../api";
 import { Context } from "../../context";
 
 
 function FilterItem({ header, data }) {
   const context= useContext(Context)
-  const {setProducts,setLoadingGridComponent,setPartGroup}=context
+  const {setProducts,setLoadingGridComponent,setPartGroup ,numberOfPages,partGroup,
+    setNumberOfPages,pageContext
+  }=context
   const reqSever = (groupCode)=>{
-    setPartGroup(getPartGroupList)
+  
+    setPartGroup(groupCode)
     setLoadingGridComponent(true)
-    getProductFromPartGroup(groupCode).then((res)=>{
+    getProductPageInation(pageContext,partGroup)
+    .then((res)=>{
       setProducts(res)
       setLoadingGridComponent(false)
     })
   }
+  useEffect(()=>{
+    getProductPageInation(pageContext,partGroup)
+    .then((res)=>{
+      setProducts(res)
+      setLoadingGridComponent(false)
+    })
+  },[pageContext])
   return (
     <div className="border-b border-black p-3 last:border-b-0">
       <h3 className="font-semibold text-lg mb-2">{header}</h3>
@@ -51,7 +62,7 @@ function FilterItem({ header, data }) {
                 type="radio"
                 className="ml-3"
                 name={header}
-                onClick={()=>reqSever(item.GroupCode)}
+                onClick={()=>{;reqSever(item.GroupCode)}}
                 value={item.value}
                 id={item.value}/>
               <label htmlFor={item.GroupName} className="text-sm lg:text-base">
