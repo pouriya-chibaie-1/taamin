@@ -5,6 +5,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      screens:{
+     'mobile':{'max':'639px'}
+      },
       colors: {
         "red-real": "#ff0000",
       },

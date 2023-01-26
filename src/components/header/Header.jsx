@@ -37,16 +37,7 @@ export default function Header() {
         >
           {`دسته بندی`}
         </NavLink>
-        <NavLink
-          to="/product"
-          className={({ isActive }) =>
-            isActive
-              ? "px-2 py-1 rounded w-full text-center md:text-base lg:text-lg bg-red-real text-white ml-4 hover:bg-red-600 active:bg-red-900"
-              : "px-2 py-1 rounded w-full text-center md:text-base lg:text-lg border-solid border border-black text-black hover:bg-gray-300 active:bg-gray-600"
-          }
-        >
-          {`محصولات جدید`}
-        </NavLink>
+   
         <NavLink
           to="/news"
           className={({ isActive }) =>

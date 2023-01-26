@@ -7,12 +7,12 @@ import Navigation from "../components/navigation/Navigation";
 
 export default function Gategory() {
   return (
-    <div style={{direction:"rtl"}} className="bg-gray-100 relative h-full">
-      {/* <Header /> */}
+    <div id="fullWidth" style={{direction:"rtl",overflow:"auto"}} className="bg-gray-100 relative h-full">
+      <Header />
       <AdBanner />
       <Main />
       <AdBanner />
-      {/* <Footer /> */}
+      <Footer />
     </div>
   );
 }

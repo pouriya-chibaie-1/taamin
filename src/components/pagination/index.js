@@ -1,35 +1,37 @@
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/20/solid";
-import { useContext } from "react";
+import { useContext, useState,useEffect } from "react";
 import { Context } from "../../context";
 
-export default function PageInation() {
+export default function PageInation({numberOfPagesP}) {
+const [page,setPage] = useState({page:0 , items:[]});
   const context = useContext(Context);
-const setPage =  ()=>{
- 
-}
-  const {products,setProducts,loadingGridComponent,setLoadingGridComponent,partGroup} = context
+console.log("numberOfPAGES",numberOfPagesP)
+
+    const array = []
+    if(numberOfPagesP!=NaN)
+        for (let i=0 ; i<=numberOfPagesP; i++){
+         
+        array.push(i)
+  }
+  
+  const  pagination=(items, currentPage, pageSize )=> {
+      const slicedArray =  items.slice(currentPage!=0&&currentPage!=1? currentPage-1: 0, currentPage + 3);
+      setPage({...page , items:[...slicedArray,'...',Math.floor(numberOfPagesP)]})
+  }
+useEffect(()=>{
+  pagination(array, 0, 5)
+},[])
+useEffect(()=>{
+  console.log(page.items)
+},[page.items])
   return (
-    <div className="flex items-center justify-between border-t border-gray-200 bg-white px-4 py-3 sm:px-6">
-      <div className="flex flex-1 justify-between sm:hidden">
-        <a
-          href="#"
-          className="relative inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
-        >
-          Previous
-        </a>
-        <a
-          href="#"
-          className="relative ml-3 inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
-        >
-          Next
-        </a>
-      </div>
-      <div className="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
-        <div>
+    <div className="flex items-center justify-center border-t border-gray-200 bg-white px-4 py-3 sm:px-6 sm:flex-row ">
+     
+      <div className=" mobile:flex mobile:flex-1 mobile:justify-between mobile:items-center mobile:w-full sm:flex sm:flex-1 sm:items-center sm:w-full sm:justify-between">
+        <div >
           <p className="text-sm text-gray-700">
-            صفحه  <span className="font-medium">1</span> از{" "}
-            <span className="font-medium">1</span> از{" "}
-            <span className="font-medium">2500</span> صفحه
+            صفحه  <span className="font-medium">{page.page}</span> از{" "}
+            <span className="font-medium">{Math.floor(numberOfPagesP)}</span> صفحه
           </p>
         </div>
         <div dir="ltr">
@@ -45,28 +47,17 @@ const setPage =  ()=>{
               <ChevronLeftIcon className="h-5 w-5" aria-hidden="true" />
             </a>
             {/* Current: "z-10 bg-indigo-50 border-indigo-500 text-indigo-600", Default: "bg-white border-gray-300 text-gray-500 hover:bg-gray-50" */}
-            <a
-              onClick={(e)=>{setPage(e)}}
+           {page.items.map((item,index)=>{
+            return (   <a
+              onClick={()=>{pagination(array,item!="..."?item:page.items[index-1] , 5)}}
               aria-current="page"
               className="relative z-10 inline-flex items-center border border-indigo-500 bg-indigo-50 px-4 py-2 text-sm font-medium text-indigo-600 focus:z-20"
-            >
-              1
-            </a>
-            <a
-              onClick={(e)=>{setPage(e)}}
-              aria-current="page"
-              className="relative z-10 inline-flex items-center border border-indigo-500 bg-indigo-50 px-4 py-2 text-sm font-medium text-indigo-600 focus:z-20"
-            >
-              2
-            </a>
-            <a
-              onClick={(e)=>{setPage(e)}}
-              aria-current="page"
-              className="relative z-10 inline-flex items-center border border-indigo-500 bg-indigo-50 px-4 py-2 text-sm font-medium text-indigo-600 focus:z-20"
-            >
-              3
-            </a>
-           
+              >
+          {item}
+        </a>)
+           })}
+         
+    
             <a
               href="#"
               className="relative inline-flex items-center rounded-r-md border border-gray-300 bg-white px-2 py-2 text-sm font-medium text-gray-500 hover:bg-gray-50 focus:z-20"

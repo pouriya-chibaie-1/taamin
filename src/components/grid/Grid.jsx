@@ -6,7 +6,7 @@ import Spinner from "../spinner/Spinner";
 
 import { FaSlidersH } from "react-icons/fa";
 
-import { getData, getProductPageInation } from "../../api";
+import { getData, getPartGroupList, getProductPageInation } from "../../api";
 import { Context } from "../../context";
 import { FadeLoader } from "react-spinners";
 import InfiniteScroll from "react-infinite-scroll-component";
@@ -19,20 +19,26 @@ export default function Grid() {
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(0);
   const context = useContext(Context);
-  const {products,setProducts,loadingGridComponent,setLoadingGridComponent,partGroup} = context
+  const {products,setProducts,loadingGridComponent,setLoadingGridComponent,partGroup,numberOfPages,setNumberOfPages} = context
  
   const toggleFilter = () => setFilter((prev) => !prev);
 
   useEffect(() => {
-    console.log("page is ",page)
     setLoadingGridComponent(true)
+    getData ()
+    .then((res)=>{
+      setLoadingGridComponent(false)
+setNumberOfPages(res.length)
+    }).catch((err)=>{
+console.log(err)
+    })
     getProductPageInation(page,partGroup)
       .then((res) => {
         const sort1 = res.map((item) => {
           return { ...item, SellPrice: parseInt(item.SellPrice.replaceAll(",", "")) };
         });
         setProducts([...products,...sort1])
-      setLoadingGridComponent(false)
+      
       })
       .then(setLoading(false))
       .catch((error) => console.log(error));
@@ -40,32 +46,24 @@ export default function Grid() {
 
   function sortPerPrice(acending) {
     return products.sort(function (a, b) {
-      
-        if (a.SellPrice == 0) {
-          return 1;
-        }
-        if (b.SellPrice == 0) {
-          return -1;
-        }
-      
-      return acending ? a.SellPrice - b.SellPrice : b.SellPrice - a.SellPrice;
+            return acending ? a.SellPrice - b.SellPrice : b.SellPrice - a.SellPrice;
     })}
   const sortHandler = async(e) => {
      await setProducts(sortPerPrice(e.target.value))
   };
   console.log("products" ,products)
-useEffect(()=>{
-  console.log(changeOption)
-  sortPerPrice(changeOption)
-},[changeOption])
+// useEffect(()=>{
+//   console.log(changeOption)
+//   sortPerPrice(changeOption)
+// },[changeOption])
 
-  // if (loadingGridComponent) {
-  //   return <Spinner />;
+  if (loadingGridComponent) {
+    return <Spinner />;
 
-  // }
-
+  }
+console.log("numberOfPages",numberOfPages)
   return (
-    <div id="containerProduct" className="w-full flex flex-col md:w-2/3 py-6">
+    <div  className="w-full flex flex-col md:w-2/3 py-6">
       <button
         className="md:hidden w-4/6 h-10 bg-gray-300 hover:bg-gray-400 rounded first:mx-auto"
         onClick={toggleFilter}
@@ -94,26 +92,29 @@ useEffect(()=>{
           </div>
         </div>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 p-2">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 p-2">
+
+      
         {products.map((element) => {
           return (
-          <Card
-              key={element.Codepart}
-              name={element.EnPartName}
-              price={element.SellPrice}
-              imageUrl={`https://via.placeholder.com/80x60.png`}
-              offerCount={element.OfferCount}
-              offerPrice={element.Offer_SellerPrice}
-              isStock={element.isStock}
-              engineType={element.Engine}
-              brand={element.Brand}
-              partNumber={element.PartNo}
+            <Card
+            key={element.Codepart}
+            name={element.EnPartName}
+            price={element.SellPrice}
+            imageUrl={`https://via.placeholder.com/80x60.png`}
+            offerCount={element.OfferCount}
+            offerPrice={element.Offer_SellerPrice}
+            isStock={element.isStock}
+            engineType={element.Engine}
+            brand={element.Brand}
+            partNumber={element.PartNo}
             />
             
             );
           })}
+         
           </div>
-         <PageInation/>
+         { numberOfPages !=NaN ?< PageInation numberOfPagesP={(numberOfPages/products.length)}/>:""}
           </div>
   );
 }
