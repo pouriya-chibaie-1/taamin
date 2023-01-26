@@ -14,7 +14,13 @@ function FilterItem({ header, data }) {
     setNumberOfPages,pageContext
   }=context
   const reqSever = (groupCode)=>{
-  
+    getProductFromPartGroup(groupCode)
+    .then((res)=>{
+      setNumberOfPages(res.length)
+    })
+    .catch((err)=>{
+      console.log(err)
+    })
     setPartGroup(groupCode)
     setLoadingGridComponent(true)
     getProductPageInation(pageContext,partGroup)
