@@ -53,8 +53,8 @@ useEffect(()=>{
       <div className=" mobile:flex mobile:flex-1 mobile:justify-between mobile:items-center mobile:w-full sm:flex sm:flex-1 sm:items-center sm:w-full sm:justify-between">
         <div >
           <p className="text-sm text-gray-700">
-            صفحه  <span className="font-medium">{pageContext}</span> از{" "}
-            <span className="font-medium">{Math.floor(numberOfPagesP) -1}</span> 
+            صفحه  <span className="font-medium">{pageContext +1}</span> از{" "}
+            <span className="font-medium">{Math.floor(numberOfPagesP) }</span> 
           </p>
         </div>
         <div dir="ltr">
@@ -76,7 +76,7 @@ useEffect(()=>{
               aria-current="page"
               className={`relative z-10 inline-flex items-center border ${item ==pageContext?'border-indigo-500 bg-indigo-50 ':'border-gray-300 bg-white'} px-4 py-2 text-sm font-medium text-indigo-600 focus:z-20`}
               >
-          {item}
+          {item!="..."?item +1:item}
         </a>)
            })}
          

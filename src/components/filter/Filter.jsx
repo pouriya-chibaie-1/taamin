@@ -11,12 +11,12 @@ import { Context } from "../../context";
 function FilterItem({ header, data }) {
   const context= useContext(Context)
   const {setProducts,setLoadingGridComponent,setPartGroup ,numberOfPages,partGroup,
-    setNumberOfPages,pageContext
+    setNumberOfPages,pageContext,products
   }=context
   const reqSever = (groupCode)=>{
     getProductFromPartGroup(groupCode)
     .then((res)=>{
-      setNumberOfPages(res.length)
+      setNumberOfPages(Math.ceil(res.length/products.length))
     })
     .catch((err)=>{
       console.log(err)

@@ -28,7 +28,10 @@ export default function Grid() {
     getData ()
     .then((res)=>{
       setLoadingGridComponent(false)
-setNumberOfPages(res.length)
+      if(numberOfPages.length !=0){
+
+        setNumberOfPages(res.length/products.length)
+      }
     }).catch((err)=>{
 console.log(err)
     })
@@ -52,10 +55,7 @@ console.log(err)
      await setProducts(sortPerPrice(e.target.value))
   };
   console.log("products" ,products)
-// useEffect(()=>{
-//   console.log(changeOption)
-//   sortPerPrice(changeOption)
-// },[changeOption])
+
 
   if (loadingGridComponent) {
     return <Spinner />;
@@ -114,7 +114,7 @@ console.log("numberOfPages",numberOfPages)
           })}
          
           </div>
-         < PageInation numberOfPagesP={(numberOfPages/products.length)}/>
+         < PageInation numberOfPagesP={(numberOfPages)}/>
           </div>
   );
 }
