@@ -22,25 +22,28 @@ export default function Grid() {
   const {products,setProducts,loadingGridComponent,setLoadingGridComponent,partGroup,numberOfPages,setNumberOfPages} = context
  
   const toggleFilter = () => setFilter((prev) => !prev);
+const getAllData=(pr)=>{
+  getData ()
+  .then((res)=>{
+    setLoadingGridComponent(false)
 
+      setNumberOfPages( Math.ceil(res.length/pr.length))
+   
+  }).catch((err)=>{
+console.log(err)
+  })
+}
   useEffect(() => {
     setLoadingGridComponent(true)
-    getData ()
-    .then((res)=>{
-      setLoadingGridComponent(false)
-      if(numberOfPages.length !=0){
-
-        setNumberOfPages(res.length/products.length)
-      }
-    }).catch((err)=>{
-console.log(err)
-    })
+    // Get All Data
+   
     getProductPageInation(page,partGroup)
       .then((res) => {
         const sort1 = res.map((item) => {
           return { ...item, SellPrice: parseInt(item.SellPrice.replaceAll(",", "")) };
         });
         setProducts([...products,...sort1])
+        getAllData(res)
       
       })
       .then(setLoading(false))
@@ -57,11 +60,12 @@ console.log(err)
   console.log("products" ,products)
 
 
+
   if (loadingGridComponent) {
     return <Spinner />;
 
   }
-console.log("numberOfPages",numberOfPages)
+ console.log("numberOfPages",numberOfPages)
   return (
     <div  className="w-full flex flex-col md:w-2/3 py-6">
       <button
