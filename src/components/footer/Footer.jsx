@@ -20,19 +20,19 @@ export default function Footer() {
         <FooterInfo header="اطلاعات تماس">
           <p className="text-xs md:text-base">تلفن دفتر فروش</p>
           <a
-            href="tel:+982112345678"
+            href="tel:02165611395"
             className="text-xs md:text-base hover:bg-gray-100 w-full text-center"
             dir="ltr"
           >
-            +۹۸۲۱۱۲۳۴۵۶۷۸
+            ۰۲۱-۶۵۶۱۱۳۹۵ 
           </a>
           <p className="text-xs md:text-base">تلفن همراه فروش</p>
           <a
-            href="tel:09901234567"
+            href="tel:09198840608"
             className="text-xs md:text-base hover:bg-gray-100 w-full text-center"
             dir="ltr"
           >
-            ۰۹۹۰۱۲۳۴۵۶۷
+          ۰۹۱۹۸۸۴۰۶۰۸
           </a>
         </FooterInfo>
         <FooterInfo header="خرید از ما">
@@ -102,11 +102,7 @@ export default function Footer() {
             alt="certificates"
           />
         </FooterInfo>
-        <img
-          className="my-10"
-          src="https://via.placeholder.com/90x20.png"
-          alt="i don't remember"
-        />
+       
       </div>
       <p className="px-5 text-sm">
         مرجع تخصصی و نقد و بررسی و فروش لوازم یدکی خودروهای سنگین در ایران. گروه

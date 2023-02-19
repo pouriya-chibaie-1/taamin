@@ -80,13 +80,13 @@ export default function Contact() {
           >
             <div className="flex justify-between">
               <input
-                className="w-1/2 h-10 py-1 px-4 rounded border border-gray-300 ml-10"
+                className="w-1/2 h-10  rounded border border-gray-300 text-center"
                 type="text"
                 placeholder={`نام و نام خانوادگی`}
                 {...register("full-name")}
               />
               <input
-                className="w-1/2 h-10 py-1 px-4 rounded border border-gray-300"
+                className="w-1/2 h-10  rounded border border-gray-300 text-center"
                 type="text"
                 placeholder={`شماره تماس`}
                 {...register("phone-number")}
@@ -94,13 +94,13 @@ export default function Contact() {
             </div>
             <div className="flex justify-between">
               <input
-                className="w-1/2 h-10 py-1 px-4 rounded border border-gray-300 ml-10"
+                className="w-1/2 h-10  rounded border border-gray-300 text-center"
                 type="email"
                 placeholder={`پست الکترونیک`}
                 {...register("email")}
               />
               <input
-                className="w-1/2 h-10 py-1 px-4 rounded border border-gray-300"
+                className="w-1/2 h-10  rounded border border-gray-300 text-center"
                 type="text"
                 placeholder={`آدرس سایت`}
                 {...register("website-address")}
@@ -108,7 +108,7 @@ export default function Contact() {
             </div>
             <div>
               <textarea
-                className="w-2/3 px-4 w-1/2 rounded border border-gray-300 py-2"
+                className="w-full rounded border border-gray-300 py-2"
                 name="message"
                 rows="8"
                 placeholder={`متن پیام`}

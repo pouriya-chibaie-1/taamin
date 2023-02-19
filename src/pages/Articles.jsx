@@ -40,7 +40,7 @@ const data = [
 
 export default function Articles() {
   return (
-    <div className="w-full max-w-[1200px] mx-auto rounded bg-gray-100">
+    <div className="w-full max-w-[1200px] mx-auto rounded bg-gray-100 " dir="rtl">
       {/* <Header /> */}
       <Gradient
         header="مقالات"
